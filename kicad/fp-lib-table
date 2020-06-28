@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name scsi2sdkit10)(type KiCad)(uri C:/Users/r/Documents/eagle/scsi2sd/scsi2sdkit10.pretty)(options "")(descr ""))
+  (lib (name scsi2sd12)(type KiCad)(uri C:/Users/r/Documents/eagle/scsi2sd/scsi2sd12/scsi2sd12.pretty)(options "")(descr ""))
+)

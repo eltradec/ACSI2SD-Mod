@@ -1,0 +1,9 @@
+(sym_lib_table
+  (lib (name scsi2sdkit10-eagle-import)(type Legacy)(uri C:/Users/r/Documents/eagle/scsi2sd/scsi2sdkit10/scsi2sdkit10-eagle-import.lib)(options "")(descr "")(disabled))
+  (lib (name ConnectorRM)(type Legacy)(uri C:/Users/r/Documents/eagle/scsi2sd/acsi2scsi/ConnectorRM.lib)(options "")(descr "")(disabled))
+  (lib (name acsi2scsi2-rescue)(type Legacy)(uri C:/Users/r/Documents/eagle/acsi2scsi/acsi2scsi2-rescue.lib)(options "")(descr ""))
+  (lib (name acsi2scsi2-cache)(type Legacy)(uri C:/Users/r/Documents/eagle/acsi2scsi/acsi2scsi2-cache.lib)(options "")(descr ""))
+  (lib (name acsi2sdkit-cache)(type Legacy)(uri ${KIPRJMOD}/acsi2sdkit-cache.lib)(options "")(descr ""))
+  (lib (name scsi2sd12-cache)(type Legacy)(uri C:/Users/r/Documents/eagle/scsi2sd/scsi2sd12/scsi2sd12-cache.lib)(options "")(descr ""))
+  (lib (name acsi2sdkit-rescue)(type Legacy)(uri ${KIPRJMOD}/acsi2sdkit-rescue.lib)(options "")(descr ""))
+)
