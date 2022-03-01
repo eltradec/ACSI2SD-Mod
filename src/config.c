@@ -31,7 +31,7 @@
 
 #include <string.h>
 
-static const uint16_t FIRMWARE_VERSION = 0x0482;
+static const uint16_t FIRMWARE_VERSION = 0x0483;
 
 // 1 flash row
 static const uint8_t DEFAULT_CONFIG[256] =
@@ -66,12 +66,12 @@ static int usbReady;
 static void initBoardConfig(BoardConfig* config) {
 	memcpy(
 		config,
-		(
+		(const void*)(
 			(CY_FLASH_BASE +
 			(CY_FLASH_SIZEOF_ARRAY * (size_t) SCSI_CONFIG_ARRAY) +
 			(CY_FLASH_SIZEOF_ROW * SCSI_CONFIG_BOARD_ROW))
 			),
-		sizeof(BoardConfig)); // RM to correct
+		sizeof(BoardConfig));
 
 	if (memcmp(config->magic, "BCFG", 4)) {
 		// Set a default from the deprecated flags, or 0 if
@@ -93,7 +93,7 @@ void configInit(BoardConfig* config)
 	usbReady = 0; // We don't know if host is connected yet.
 
 	int invalid = 1;
-	uint8_t* rawConfig = (getConfigByIndex(0));
+    uint8_t* rawConfig = (uint8_t*)getConfigByIndex(0);
 	int i;
 	for (i = 0; i < 64; ++i)
 	{
@@ -123,11 +123,12 @@ readFlashCommand(const uint8_t* cmd, size_t cmdSize)
 	uint8_t flashArray = cmd[1];
 	uint8_t flashRow = cmd[2];
 
-	uint8_t* flash = (CY_FLASH_BASE +
-		(CY_FLASH_SIZEOF_ARRAY * (size_t) flashArray) +
-		(CY_FLASH_SIZEOF_ROW * (size_t) flashRow));
+    uint32_t flash =
+            CY_FLASH_BASE +
+            (CY_FLASH_SIZEOF_ARRAY * (size_t) flashArray) +
+            (CY_FLASH_SIZEOF_ROW * (size_t) flashRow); // RM
 
-	hidPacket_send(flash, SCSI_CONFIG_ROW_SIZE);
+	hidPacket_send((uint8_t*)&flash, SCSI_CONFIG_ROW_SIZE); // RM avoid cast warning
 }
 
 static void
@@ -351,7 +352,7 @@ void debugPoll()
 		hidBuffer[61] = sdDev.capacity;
 
 		hidBuffer[62] = FIRMWARE_VERSION >> 8;
-		hidBuffer[63] = FIRMWARE_VERSION;
+		hidBuffer[63] = FIRMWARE_VERSION & 0xFF;
 
 		USBFS_LoadInEP(USB_EP_DEBUG, (uint8 *)&hidBuffer, sizeof(hidBuffer));
 		usbDebugEpState = USB_DATA_SENT;

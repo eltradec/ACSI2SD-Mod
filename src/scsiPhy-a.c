@@ -309,11 +309,11 @@ doTxSingleDMA(const uint8* data, uint32 count)
 }
 
 void
-scsiWriteDMA(const uint8* data, uint32 count)
+scsiWriteDMA(const uint8_t* data, uint32 count)
 {
 	dmaSentCount = 0;
 	dmaTotalCount = count;
-	dmaBuffer = data;
+	dmaBuffer = (uint8_t*) data;
 
 	uint32_t singleCount = (count > MAX_DMA_BYTES) ? MAX_DMA_BYTES : count;
 	doTxSingleDMA(data, singleCount);
@@ -599,7 +599,7 @@ int scsiSelfTest()
 	#endif
 	SCSI_CTL_PHASE_Write(0);
 
-	uint32_t signalsOut[] = { 0, 0, 0 }; // RM no outputs
+	// uint32_t signalsOut[] = { 0, 0, 0 }; // RM no outputs
 	uint32_t signalsIn[] = { SCSI_Filt_BSY, SCSI_Filt_RST, SCSI_Filt_SEL };
 
 	for (i = 0; i < 3; ++i)
